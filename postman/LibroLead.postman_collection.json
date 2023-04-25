@@ -1,0 +1,30 @@
+{
+	"info": {
+		"_postman_id": "fc230cdf-8572-4485-a6d9-d18195ca7d3f",
+		"name": "LibroLead",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18971323",
+		"_collection_link": "https://interstellar-shuttle-401487.postman.co/workspace/LibroLead~b241a89b-328d-4c8b-9d34-0b55162668ab/collection/18971323-fc230cdf-8572-4485-a6d9-d18195ca7d3f?action=share&creator=18971323&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "GET hello endpoint",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v1/books",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
