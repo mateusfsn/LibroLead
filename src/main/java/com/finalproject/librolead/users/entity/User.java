@@ -1,6 +1,7 @@
 package com.finalproject.librolead.users.entity;
 
 import com.finalproject.librolead.books.entity.Book;
+import com.finalproject.librolead.entity.Auditable;
 import com.finalproject.librolead.users.enums.Gender;
 import lombok.Data;
 
@@ -18,7 +19,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class User {
+public class User extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,7 @@
 package com.finalproject.librolead.books.entity;
 
 import com.finalproject.librolead.author.entity.Author;
+import com.finalproject.librolead.entity.Auditable;
 import com.finalproject.librolead.publishers.entity.Publisher;
 import com.finalproject.librolead.users.entity.User;
 import lombok.Data;
@@ -15,7 +16,7 @@ import javax.persistence.ManyToOne;
 
 @Data
 @Entity
-public class Book {
+public class Book extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
