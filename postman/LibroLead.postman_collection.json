@@ -8,6 +8,39 @@
 	},
 	"item": [
 		{
+			"name": "Authors",
+			"item": [
+				{
+					"name": "Create authors",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mateus Costa\",\r\n    \"age\": 22\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/authors",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"authors"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "GET hello endpoint",
 			"request": {
 				"method": "GET",
