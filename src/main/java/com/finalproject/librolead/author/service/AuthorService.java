@@ -21,13 +21,17 @@ public class AuthorService {
     }
 
     public AuthorDTO create(AuthorDTO authorDTO) {
-        authorRepository.findByName(authorDTO.getName())
-                .ifPresent(author -> {
-                    throw new AuthorAlreadyExistsException(authorDTO.getName());
-                });
+        verifyIfExists(authorDTO.getName());
 
         Author authorToCreate = authorMapper.toModel(authorDTO);
         Author createdAuthor = authorRepository.save(authorToCreate);
         return authorMapper.toDTO(createdAuthor);
+    }
+
+    private void verifyIfExists(String authorName) {
+        authorRepository.findByName(authorName)
+                .ifPresent(author -> {
+                    throw new AuthorAlreadyExistsException(authorName);
+                });
     }
 }
