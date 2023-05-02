@@ -1,2 +1,9 @@
-package com.finalproject.librolead.config;public class AuditConfig {
+package com.finalproject.librolead.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+@Configuration
+@EnableJpaAuditing
+public class AuditConfig {
 }
