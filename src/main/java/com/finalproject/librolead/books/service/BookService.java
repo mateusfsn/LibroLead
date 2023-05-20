@@ -1,16 +1,13 @@
 package com.finalproject.librolead.books.service;
 
 import com.finalproject.librolead.author.repository.AuthorRepository;
-import com.finalproject.librolead.author.entity.Author;
 import com.finalproject.librolead.books.dto.BookDTO;
 import com.finalproject.librolead.books.entity.Book;
 import com.finalproject.librolead.books.exception.BookAlreadyExistsException;
 import com.finalproject.librolead.books.exception.BookNotFoundException;
 import com.finalproject.librolead.books.mapper.BookMapper;
 import com.finalproject.librolead.books.repository.BookRepository;
-import com.finalproject.librolead.publishers.entity.Publisher;
 import com.finalproject.librolead.publishers.repository.PublisherRepository;
-import com.finalproject.librolead.users.entity.User;
 import com.finalproject.librolead.users.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
