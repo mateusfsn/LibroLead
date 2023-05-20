@@ -6,19 +6,20 @@ import com.finalproject.librolead.author.entity.Author;
 import com.finalproject.librolead.author.exception.AuthorAlreadyExistsException;
 import com.finalproject.librolead.author.mapper.AuthorMapper;
 import com.finalproject.librolead.author.repository.AuthorRepository;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.core.Is;
-import org.hamcrest.core.IsEqual;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthorServiceTest {
@@ -45,13 +46,13 @@ public class AuthorServiceTest {
         Author expectedCreatedAuthor = authorMapper.toModel(expectedAuthorToCreateDTO);
 
         //when
-        Mockito.when(authorRepository.save(expectedCreatedAuthor)).thenReturn(expectedCreatedAuthor);
-        Mockito.when(authorRepository.findByName(expectedAuthorToCreateDTO.getName())).thenReturn(Optional.empty());
+        when(authorRepository.save(expectedCreatedAuthor)).thenReturn(expectedCreatedAuthor);
+        when(authorRepository.findByName(expectedAuthorToCreateDTO.getName())).thenReturn(Optional.empty());
 
         AuthorDTO createdAuthorDTO = authorService.create(expectedAuthorToCreateDTO);
 
         //then
-        MatcherAssert.assertThat(createdAuthorDTO, Is.is(IsEqual.equalTo(expectedAuthorToCreateDTO)));
+        assertThat(createdAuthorDTO, is(equalTo(expectedAuthorToCreateDTO)));
     }
 
     @Test
@@ -59,9 +60,9 @@ public class AuthorServiceTest {
         AuthorDTO expectedAuthorToCreateDTO = authorDTOBuilder.buildAuthorDTO();
         Author expectedCreatedAuthor = authorMapper.toModel(expectedAuthorToCreateDTO);
 
-        Mockito.when(authorRepository.findByName(expectedAuthorToCreateDTO.getName()))
+        when(authorRepository.findByName(expectedAuthorToCreateDTO.getName()))
                 .thenReturn(Optional.of(expectedCreatedAuthor));
 
-        Assertions.assertThrows(AuthorAlreadyExistsException.class, () -> authorService.create(expectedAuthorToCreateDTO));
+        assertThrows(AuthorAlreadyExistsException.class, () -> authorService.create(expectedAuthorToCreateDTO));
     }
 }
