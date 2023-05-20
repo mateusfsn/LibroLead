@@ -100,6 +100,39 @@
 			]
 		},
 		{
+			"name": "Publishers",
+			"item": [
+				{
+					"name": "Create publisher",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Costa editora\",\r\n    \"code\": \"COST4321\",\r\n    \"foundationDate\": \"18/10/1963\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/publishers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"publishers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "GET hello endpoint",
 			"request": {
 				"method": "GET",
