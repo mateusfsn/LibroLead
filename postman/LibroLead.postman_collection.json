@@ -76,6 +76,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete author by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/authors/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"authors",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
