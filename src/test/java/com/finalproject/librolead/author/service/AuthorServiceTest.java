@@ -4,6 +4,7 @@ import com.finalproject.librolead.author.builder.AuthorDTOBuilder;
 import com.finalproject.librolead.author.dto.AuthorDTO;
 import com.finalproject.librolead.author.entity.Author;
 import com.finalproject.librolead.author.exception.AuthorAlreadyExistsException;
+import com.finalproject.librolead.author.exception.AuthorNotFoundException;
 import com.finalproject.librolead.author.mapper.AuthorMapper;
 import com.finalproject.librolead.author.repository.AuthorRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -64,5 +65,26 @@ public class AuthorServiceTest {
                 .thenReturn(Optional.of(expectedCreatedAuthor));
 
         assertThrows(AuthorAlreadyExistsException.class, () -> authorService.create(expectedAuthorToCreateDTO));
+    }
+
+    @Test
+    void whenValidIdIsGivenThenAnAuthorShouldBeReturned() {
+        AuthorDTO expectedFoundAuthorDTO = authorDTOBuilder.buildAuthorDTO();
+        Author expectedFoundAuthor = authorMapper.toModel(expectedFoundAuthorDTO);
+
+        when(authorRepository.findById(expectedFoundAuthorDTO.getId())).thenReturn(Optional.of(expectedFoundAuthor));
+
+        AuthorDTO foundAuthorDTO = authorService.findById(expectedFoundAuthorDTO.getId());
+
+        assertThat(foundAuthorDTO, is(equalTo(expectedFoundAuthorDTO)));
+    }
+
+    @Test
+    void whenInvalidIdIsGivenThenAnExceptionShouldBeThrown() {
+        AuthorDTO expectedFoundAuthorDTO = authorDTOBuilder.buildAuthorDTO();
+
+        when(authorRepository.findById(expectedFoundAuthorDTO.getId())).thenReturn(Optional.empty());
+
+        assertThrows(AuthorNotFoundException.class, () -> authorService.findById(expectedFoundAuthorDTO.getId()));
     }
 }
