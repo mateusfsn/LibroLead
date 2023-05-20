@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/books")
 @Api(tags = "Books")
-public class BookController {
+public class BookController implements BookControllerDocs {
 
     private final BookService bookService;
 
