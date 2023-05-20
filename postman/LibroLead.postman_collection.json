@@ -136,7 +136,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/publishers/2",
+							"raw": "{{url}}/api/v1/publishers/1",
 							"host": [
 								"{{url}}"
 							],
@@ -144,7 +144,26 @@
 								"api",
 								"v1",
 								"publishers",
-								"2"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List publishers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/publishers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"publishers"
 							]
 						}
 					},
