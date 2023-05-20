@@ -18,10 +18,10 @@ import java.util.Collections;
 
 import static com.finalproject.librolead.utils.JsonConversionUtils.asJsonString;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -103,5 +103,17 @@ public class AuthorControllerTest {
                 .andExpect(jsonPath("$[0].id", is(expectedFoundAuthorDTO.getId().intValue())))
                 .andExpect(jsonPath("$[0].name", is(expectedFoundAuthorDTO.getName())))
                 .andExpect(jsonPath("$[0].age", is(expectedFoundAuthorDTO.getAge())));
+    }
+
+    @Test
+    void whenDELETEWithValidIdIsCalledThenNoContentShouldBeReturned() throws Exception {
+        AuthorDTO expectedAuthorDeletedDTO = authorDTOBuilder.buildAuthorDTO();
+        var expectedAuthorDeletedId = expectedAuthorDeletedDTO.getId();
+
+        doNothing().when(authorService).delete(expectedAuthorDeletedId);
+
+        mockMvc.perform(delete(AUTHOR_API_URL_PATH + "/" + expectedAuthorDeletedId)
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().isNoContent());
     }
 }

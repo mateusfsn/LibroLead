@@ -45,6 +45,12 @@ public class AuthorService {
                 .collect(Collectors.toList());
     }
 
+    public void delete(Long id) {
+        Author foundAuthor = authorRepository.findById(id)
+                .orElseThrow(() -> new AuthorNotFoundException(id));
+        authorRepository.deleteById(id);
+    }
+
     private void verifyIfExists(String authorName) {
         authorRepository.findByName(authorName)
                 .ifPresent(author -> {
