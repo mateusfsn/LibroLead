@@ -1,13 +1,19 @@
 package com.finalproject.librolead.users.dto;
 
-import java.util.List;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.finalproject.librolead.users.enums.Gender;
+import com.finalproject.librolead.users.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Data
@@ -19,13 +25,14 @@ public class UserDTO {
 
     @NotNull
     @NotEmpty
-    @Size(min = 2, max = 255)
+    @Size(max = 255)
     private String name;
 
     @NotNull
     @Max(120)
-    private int age;
+    private Integer age;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
     private Gender gender;
 
@@ -36,16 +43,17 @@ public class UserDTO {
 
     @NotNull
     @NotEmpty
-    @Size(min = 2, max = 50)
     private String username;
 
     @NotNull
     @NotEmpty
-    @Size(min = 6, max = 255)
     private String password;
 
     @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate birthDate;
 
-    private List<Long> bookIds;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Role role;
 }

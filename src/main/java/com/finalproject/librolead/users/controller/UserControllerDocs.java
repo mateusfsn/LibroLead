@@ -1,40 +1,42 @@
 package com.finalproject.librolead.users.controller;
 
+import com.finalproject.librolead.users.dto.JwtRequest;
+import com.finalproject.librolead.users.dto.JwtResponse;
+import com.finalproject.librolead.users.dto.MessageDTO;
 import com.finalproject.librolead.users.dto.UserDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-import java.util.List;
-
 @Api("Manages User")
 public interface UserControllerDocs {
 
     @ApiOperation(value = "User creation operation")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Success User creation"),
-            @ApiResponse(code = 400, message = "Missing required fields or wrong field value")
+            @ApiResponse(code = 201, message = "Success user creation"),
+            @ApiResponse(code = 400, message = "Missing required field, or an error on validation field rules")
     })
-    UserDTO createUser(UserDTO userDTO);
+    MessageDTO create(UserDTO userToCreateDTO);
 
-    @ApiOperation(value = "Find a specific User by ID")
+    @ApiOperation(value = "User exclusion operation")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success User found"),
-            @ApiResponse(code = 404, message = "User with given id not found")
+            @ApiResponse(code = 204, message = "Success user exclusion"),
+            @ApiResponse(code = 404, message = "User with informed id not found in the system")
     })
-    UserDTO findUserById(Long id);
+    void delete(Long id);
 
-    @ApiOperation(value = "List all registered Users")
+    @ApiOperation(value = "User update operation")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "List all Users")
+            @ApiResponse(code = 200, message = "Success user updated"),
+            @ApiResponse(code = 400, message = "Missing required field, or an error on validation field rules")
     })
-    List<UserDTO> listAll();
+    MessageDTO update(Long id, UserDTO userToUpdateDTO);
 
-    @ApiOperation(value = "Delete a User found by a given valid Id")
+    @ApiOperation(value = "User authentication operation")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Success User deleted"),
-            @ApiResponse(code = 404, message = "User with given id not found")
+            @ApiResponse(code = 200, message = "Success user authenticated"),
+            @ApiResponse(code = 404, message = "User not found")
     })
-    void deleteById(Long id);
+    JwtResponse createAuthenticationToken(JwtRequest jwtRequest);
 }

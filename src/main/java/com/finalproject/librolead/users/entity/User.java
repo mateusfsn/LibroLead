@@ -3,6 +3,7 @@ package com.finalproject.librolead.users.entity;
 import com.finalproject.librolead.books.entity.Book;
 import com.finalproject.librolead.entity.Auditable;
 import com.finalproject.librolead.users.enums.Gender;
+import com.finalproject.librolead.users.enums.Role;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -47,6 +48,10 @@ public class User extends Auditable {
     @Column(nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDate birthDate;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch =  FetchType.LAZY)
     private List<Book> books;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private Role role;
 }
