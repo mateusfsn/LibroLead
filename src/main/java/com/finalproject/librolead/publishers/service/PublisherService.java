@@ -50,4 +50,10 @@ public class PublisherService {
                 .map(publisherMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    public void delete(Long id) {
+        publisherRepository.findById(id)
+                .orElseThrow(() -> new PublisherNotFoundException(id));
+        publisherRepository.deleteById(id);
+    }
 }
