@@ -7,6 +7,6 @@ import static java.lang.String.format;
 public class AuthorAlreadyExistsException extends EntityExistsException {
 
     public AuthorAlreadyExistsException(String name) {
-        super(format("User with name %s already exists", name));
+        super(format("Author with name %s already exists", name));
     }
 }
