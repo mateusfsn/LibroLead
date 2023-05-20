@@ -173,6 +173,7 @@
 								"type": "text"
 							}
 						],
+
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"name\": \"Costa editora\",\r\n    \"code\": \"COST4321\",\r\n    \"foundationDate\": \"18/10/1963\"\r\n}",
@@ -231,6 +232,7 @@
 					"name": "List publishers",
 					"request": {
 						"method": "GET",
+
 						"header": [
 							{
 								"key": "Content-Type",
