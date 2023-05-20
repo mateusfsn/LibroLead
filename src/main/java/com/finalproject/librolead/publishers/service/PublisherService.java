@@ -3,6 +3,7 @@ package com.finalproject.librolead.publishers.service;
 import com.finalproject.librolead.publishers.dto.PublisherDTO;
 import com.finalproject.librolead.publishers.entity.Publisher;
 import com.finalproject.librolead.publishers.exception.PublisherAlreadyExistsException;
+import com.finalproject.librolead.publishers.exception.PublisherNotFoundException;
 import com.finalproject.librolead.publishers.mapper.PublisherMapper;
 import com.finalproject.librolead.publishers.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,11 @@ public class PublisherService {
         Publisher publisherToCreate = publisherMapper.toModel(publisherDTO);
         Publisher createdPublisher = publisherRepository.save(publisherToCreate);
         return publisherMapper.toDTO(createdPublisher);
+    }
+
+    public PublisherDTO findById(Long id) {
+        return publisherRepository.findById(id)
+                .map(publisherMapper::toDTO)
+                .orElseThrow(() -> new PublisherNotFoundException(id));
     }
 }
