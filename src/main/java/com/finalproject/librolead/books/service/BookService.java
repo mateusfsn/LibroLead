@@ -24,9 +24,6 @@ public class BookService {
     private final BookMapper bookMapper = BookMapper.INSTANCE;
 
     private BookRepository bookRepository;
-    private AuthorRepository authorRepository;
-    private PublisherRepository publisherRepository;
-    private UserRepository userRepository;
 
     @Autowired
     public BookService(BookRepository bookRepository,
@@ -34,28 +31,11 @@ public class BookService {
                        PublisherRepository publisherRepository,
                        UserRepository userRepository) {
         this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
-        this.publisherRepository = publisherRepository;
-        this.userRepository = userRepository;
     }
 
     public BookDTO create(BookDTO bookDTO) {
         verifyIfExists(bookDTO.getIsbn());
-
-        Author author = authorRepository.findById(bookDTO.getAuthorId())
-                .orElseThrow(() -> new RuntimeException("Author Not Found"));
-
-        Publisher publisher = publisherRepository.findById(bookDTO.getPublisherId())
-                .orElseThrow(() -> new RuntimeException("Publisher Not Found"));
-
-        User user = userRepository.findById(bookDTO.getUserId())
-                .orElseThrow(() -> new RuntimeException("User Not Found"));
-
         Book bookToCreate = bookMapper.toModel(bookDTO);
-        bookToCreate.setAuthor(author);
-        bookToCreate.setPublisher(publisher);
-        bookToCreate.setUser(user);
-
         Book createdBook = bookRepository.save(bookToCreate);
         return bookMapper.toDTO(createdBook);
     }
