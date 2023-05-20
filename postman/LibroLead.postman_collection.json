@@ -129,6 +129,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Find publisher by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/publishers/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"publishers",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
