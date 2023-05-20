@@ -57,6 +57,25 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "List authors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/authors",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"authors"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
