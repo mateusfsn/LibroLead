@@ -19,3 +19,7 @@ logging:
     br:
       com:
         finalproject: INFO
+
+jwt:
+  secret: librolead
+  validity: 18000
