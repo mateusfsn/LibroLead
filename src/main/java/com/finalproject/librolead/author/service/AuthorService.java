@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class AuthorService {
 
-    private final AuthorMapper authorMapper = AuthorMapper.INSTANCE;
+    private final static AuthorMapper authorMapper = AuthorMapper.INSTANCE;
 
     private AuthorRepository authorRepository;
 
@@ -26,14 +26,13 @@ public class AuthorService {
 
     public AuthorDTO create(AuthorDTO authorDTO) {
         verifyIfExists(authorDTO.getName());
-
         Author authorToCreate = authorMapper.toModel(authorDTO);
         Author createdAuthor = authorRepository.save(authorToCreate);
         return authorMapper.toDTO(createdAuthor);
     }
 
     public AuthorDTO findById(Long id) {
-        Author foundAuthor = verifyAndGetAuthor(id);
+        Author foundAuthor = verifyAndGetIfExists(id);
         return authorMapper.toDTO(foundAuthor);
     }
 
@@ -44,21 +43,20 @@ public class AuthorService {
                 .collect(Collectors.toList());
     }
 
+    private void verifyIfExists(String authorName) {
+        authorRepository.findByName(authorName)
+                .ifPresent(author -> { throw new AuthorAlreadyExistsException(authorName); });
+    }
+
     public void delete(Long id) {
-        verifyAndGetAuthor(id);
+        verifyAndGetIfExists(id);
         authorRepository.deleteById(id);
     }
 
-    private Author verifyAndGetAuthor(Long id) {
+    public Author verifyAndGetIfExists(Long id) {
         Author foundAuthor = authorRepository.findById(id)
                 .orElseThrow(() -> new AuthorNotFoundException(id));
         return foundAuthor;
     }
 
-    private void verifyIfExists(String authorName) {
-        authorRepository.findByName(authorName)
-                .ifPresent(author -> {
-                    throw new AuthorAlreadyExistsException(authorName);
-                });
-    }
 }
