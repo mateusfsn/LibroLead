@@ -31,10 +31,9 @@ jobs:
           ~/.sonar/cache
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
-
+        
     - name: Build and analyze with Maven and SonarCloud
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to comment on Pull Requests
-      run: ./mvnw clean package sonar:sonar -P sonar -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} -Dsonar.host.url=https://sonarcloud.io
+      run: ./mvnw clean package sonar:sonar -P sonar -Dsonar.host.url=https://sonarcloud.io
