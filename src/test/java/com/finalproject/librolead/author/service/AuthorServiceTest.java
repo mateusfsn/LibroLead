@@ -14,10 +14,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
+import static java.util.Collections.EMPTY_LIST;
+import static java.util.Collections.singletonList;
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -50,7 +52,7 @@ public class AuthorServiceTest {
 
         //when
         when(authorRepository.save(expectedCreatedAuthor)).thenReturn(expectedCreatedAuthor);
-        when(authorRepository.findByName(expectedAuthorToCreateDTO.getName())).thenReturn(Optional.empty());
+        when(authorRepository.findByName(expectedAuthorToCreateDTO.getName())).thenReturn(empty());
 
         AuthorDTO createdAuthorDTO = authorService.create(expectedAuthorToCreateDTO);
 
@@ -64,7 +66,7 @@ public class AuthorServiceTest {
         Author expectedCreatedAuthor = authorMapper.toModel(expectedAuthorToCreateDTO);
 
         when(authorRepository.findByName(expectedAuthorToCreateDTO.getName()))
-                .thenReturn(Optional.of(expectedCreatedAuthor));
+                .thenReturn(of(expectedCreatedAuthor));
 
         assertThrows(AuthorAlreadyExistsException.class, () -> authorService.create(expectedAuthorToCreateDTO));
     }
@@ -74,7 +76,7 @@ public class AuthorServiceTest {
         AuthorDTO expectedFoundAuthorDTO = authorDTOBuilder.buildAuthorDTO();
         Author expectedFoundAuthor = authorMapper.toModel(expectedFoundAuthorDTO);
 
-        when(authorRepository.findById(expectedFoundAuthorDTO.getId())).thenReturn(Optional.of(expectedFoundAuthor));
+        when(authorRepository.findById(expectedFoundAuthorDTO.getId())).thenReturn(of(expectedFoundAuthor));
 
         AuthorDTO foundAuthorDTO = authorService.findById(expectedFoundAuthorDTO.getId());
 
@@ -85,7 +87,7 @@ public class AuthorServiceTest {
     void whenInvalidIdIsGivenThenAnExceptionShouldBeThrown() {
         AuthorDTO expectedFoundAuthorDTO = authorDTOBuilder.buildAuthorDTO();
 
-        when(authorRepository.findById(expectedFoundAuthorDTO.getId())).thenReturn(Optional.empty());
+        when(authorRepository.findById(expectedFoundAuthorDTO.getId())).thenReturn(empty());
 
         assertThrows(AuthorNotFoundException.class, () -> authorService.findById(expectedFoundAuthorDTO.getId()));
     }
@@ -95,7 +97,7 @@ public class AuthorServiceTest {
         AuthorDTO expectedFoundAuthorDTO = authorDTOBuilder.buildAuthorDTO();
         Author expectedFoundAuthor = authorMapper.toModel(expectedFoundAuthorDTO);
 
-        when(authorRepository.findAll()).thenReturn(Collections.singletonList(expectedFoundAuthor));
+        when(authorRepository.findAll()).thenReturn(singletonList(expectedFoundAuthor));
 
         List<AuthorDTO> foundAuthorsDTO = authorService.findAll();
 
@@ -105,7 +107,7 @@ public class AuthorServiceTest {
 
     @Test
     void whenListAuthorsIsCalledThenAnEmptyListShouldBeReturned() {
-        when(authorRepository.findAll()).thenReturn(Collections.EMPTY_LIST);
+        when(authorRepository.findAll()).thenReturn(EMPTY_LIST);
 
         List<AuthorDTO> foundAuthorsDTO = authorService.findAll();
 
@@ -119,7 +121,7 @@ public class AuthorServiceTest {
 
         Long expectedDeletedAuthorId = expectedDeletedAuthorDTO.getId();
         doNothing().when(authorRepository).deleteById(expectedDeletedAuthorId);
-        when(authorRepository.findById(expectedDeletedAuthorId)).thenReturn(Optional.of(expectedDeletedAuthor));
+        when(authorRepository.findById(expectedDeletedAuthorId)).thenReturn(of(expectedDeletedAuthor));
 
         authorService.delete(expectedDeletedAuthorId);
 
@@ -131,7 +133,7 @@ public class AuthorServiceTest {
     void whenInvalidAuthorIdIsGivenThenAnExceptionShouldBeThrown() {
         var expectedInvalidAuthorId = 2L;
 
-        when(authorRepository.findById(expectedInvalidAuthorId)).thenReturn(Optional.empty());
+        when(authorRepository.findById(expectedInvalidAuthorId)).thenReturn(empty());
 
         assertThrows(AuthorNotFoundException.class, () -> authorService.delete(expectedInvalidAuthorId));
     }
