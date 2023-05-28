@@ -11,12 +11,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import java.util.Collections;
-
 import static com.finalproject.librolead.utils.JsonConversionUtils.asJsonString;
+import static java.util.Collections.singletonList;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -24,6 +22,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthorControllerTest {
@@ -43,7 +42,7 @@ public class AuthorControllerTest {
     @BeforeEach
     void setUp() {
         authorDTOBuilder = AuthorDTOBuilder.builder().build();
-        mockMvc = MockMvcBuilders.standaloneSetup(authorController)
+        mockMvc = standaloneSetup(authorController)
                 .setCustomArgumentResolvers((new PageableHandlerMethodArgumentResolver()))
                 .setViewResolvers((s, locale) -> new MappingJackson2JsonView())
                 .build();
@@ -95,7 +94,7 @@ public class AuthorControllerTest {
     void whenGETListIsCalledThenStatusOkShouldBeReturned() throws Exception {
         AuthorDTO expectedFoundAuthorDTO = authorDTOBuilder.buildAuthorDTO();
 
-        when(authorService.findAll()).thenReturn(Collections.singletonList(expectedFoundAuthorDTO));
+        when(authorService.findAll()).thenReturn(singletonList(expectedFoundAuthorDTO));
 
         mockMvc.perform(get(AUTHOR_API_URL_PATH + "/")
                 .contentType(APPLICATION_JSON))
@@ -113,7 +112,7 @@ public class AuthorControllerTest {
         doNothing().when(authorService).delete(expectedAuthorDeletedId);
 
         mockMvc.perform(delete(AUTHOR_API_URL_PATH + "/" + expectedAuthorDeletedId)
-                        .contentType(APPLICATION_JSON))
+                .contentType(APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
 }
