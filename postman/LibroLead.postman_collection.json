@@ -295,9 +295,24 @@
 			"item": [
 				{
 					"name": "Create user",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"name\": \"Mateus Costa\",\r\n    \"age\": 22,\r\n    \"email\": \"mateusfsn@ufmg.br\",\r\n    \"gender\": \"MALE\",\r\n    \"username\": \"mateus\",\r\n    \"password\": \"123456\",\r\n    \"birthDate\": \"01/01/2000\",\r\n    \"role\": \"USER\"\r\n}",
@@ -325,7 +340,13 @@
 					"name": "Update user",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"name\": \"Mateus Admin\",\r\n    \"age\": 22,\r\n    \"email\": \"mateusfsn@ufmg.br\",\r\n    \"gender\": \"MALE\",\r\n    \"username\": \"mateus\",\r\n    \"password\": \"123456\",\r\n    \"birthDate\": \"01/01/2000\",\r\n    \"role\": \"ADMIN\"\r\n}",
