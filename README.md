@@ -1,3 +1,6 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mateusfsn_LibroLead&metric=alert_status&token=fcff2795b6fd39f1bad97fb60bb78673d52b57b3)](https://sonarcloud.io/summary/new_code?id=mateusfsn_LibroLead)
+[![Java CI with Maven](https://github.com/mateusfsn/LibroLead/actions/workflows/maven_build.yml/badge.svg?branch=master)](https://github.com/mateusfsn/LibroLead/actions/workflows/maven_build.yml)
+
 # **LibroLead**
 
 ### **Integrantes:**
